@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 import execution
+import load_objects
 
 root = tk.Tk()
 root.geometry("600x400")
@@ -20,7 +21,7 @@ def runDetection():
     else:
         error_txt.set('')
 
-    execution.createDataset(input_path.get(),output_path.get(),)
+    execution.createDataset(input_path.get(),output_path.get(),objectChoosen['value'][objectChoosen.current()])
     
 #file dialog for video input
 def getVideoPath():
@@ -59,10 +60,7 @@ browse_output_btn = tk.Button(root, text='Browse',bd=3,command=getOutputFolder).
 
 v = tk.StringVar()
 objectChoosen = ttk.Combobox(root, width=20, textvariable=v)
-objectChoosen['value'] = ('Choose Object',
-                        'Person',
-                        'Laptop',
-                        'Chair')
+objectChoosen['value'] = load_objects.load_classes()
 
 objectChoosen.grid(column=1, row=15)
 objectChoosen.current(0)
